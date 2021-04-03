@@ -1,7 +1,6 @@
 import { Field, ObjectType } from "type-graphql";
 import { 
     BaseEntity, 
-    Column, 
     CreateDateColumn, 
     Entity, 
     PrimaryGeneratedColumn,
@@ -14,10 +13,6 @@ export class User extends BaseEntity {
     @Field()
     @PrimaryGeneratedColumn()
     id: number;
-
-    @Field()
-    @Column({ unique: true })
-    username: string;
 
     @Field()
     @CreateDateColumn()

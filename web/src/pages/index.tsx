@@ -1,11 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { 
-  useHiQuery,
-  // useUploadFileMutation,
-  // useCoolEventSubscription,
-  // useRegisterMutation 
-} from '../generated/graphql';
+import { useHiQuery } from '../generated/graphql';
 import { withApollo } from '../utils/withApollo';
 
 const Container = styled.div`
@@ -14,11 +9,11 @@ const Container = styled.div`
 `;
 
 const Index : React.FC<{}> = () => {
-  const { data } = useHiQuery();
+  const response = useHiQuery();
 
   return (
     <Container>
-      {data?.hi}
+      {response?.data?.hi}
     </Container>
   )
 }
