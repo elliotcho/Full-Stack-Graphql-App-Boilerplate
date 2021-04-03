@@ -1,12 +1,16 @@
-import { MyContext } from "src/types";
 import { 
+    Arg,
     Ctx,
+    Mutation,
     PubSub, 
     PubSubEngine, 
     Query, 
     Resolver, 
     Subscription
 } from "type-graphql";
+import { GraphQLUpload, MyContext, Upload } from "../types";
+import { createWriteStream } from "fs";
+import path from 'path';
 
 @Resolver() 
 export class HiResolver {
@@ -16,6 +20,18 @@ export class HiResolver {
     ): Promise<string> {
         await pubsub.publish('cool_event' , {});
         return 'hi';
+    }
+
+    @Mutation(() => Boolean)
+    async uploadFile(
+        @Arg('file', () => GraphQLUpload) { createReadStream, filename} : Upload
+    ) : Promise<boolean> {
+        return new Promise(async (resolve, reject) =>
+            createReadStream()
+                .pipe(createWriteStream(path.join(__dirname, `../../images/${filename}`)))
+                .on('finish', () => resolve(true))
+                .on('error', () => reject(false))
+        );
     }
 
     @Subscription(() => Boolean, { 
