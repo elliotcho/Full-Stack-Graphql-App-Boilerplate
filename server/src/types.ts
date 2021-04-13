@@ -6,9 +6,10 @@ import { GraphQLError, GraphQLScalarType } from 'graphql';
 import { Stream } from 'stream';
 
 export type MyContext = {
-    req: Request & { session: Session & { uid? : number} },
-    res: Response,
-    redis: Redis
+    req: Request & { session: Session & { uid? : number} };
+    res: Response;
+    connection: any;
+    redis: Redis;
 }
 
 export type Upload = {
